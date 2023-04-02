@@ -1,0 +1,120 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+#container {
+  background-color: rgb(75, 75, 75);
+  width: 400px;
+  min-height: 200px;
+  font-family: sans-serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  display: none;
+}
+
+#container h1 {
+  font-size: 18px;
+}
+img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 100%;
+  justify-self: "center";
+}
+#textarea {
+  width: 100%;
+  max-height: 300px;
+  overflow: auto;
+  min-height: 35px;
+  background-color: rgb(110, 110, 110);
+  outline: gray;
+  color: #fff;
+  font-weight: bold;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 5px;
+}
+#textarea::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgb(110, 110, 110);
+}
+
+#textarea::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f5;
+}
+
+#textarea::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #555;
+}
+span {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+#propmtContainer {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+button {
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 15px;
+  background-color: #10a37f;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0e8a6b;
+}
+
+/* API key Step*/
+#addAPIKey {
+  background-color: rgb(75, 75, 75);
+  width: 400px;
+  min-height: 200px;
+  font-family: sans-serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  display: none;
+}
+
+#apiKeyContainer {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+#apiKeyInput {
+  width: 100%;
+  max-height: 300px;
+  overflow: auto;
+  min-height: 35px;
+  background-color: rgb(110, 110, 110);
+  outline: gray;
+  color: #fff;
+  font-weight: bold;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+}
+
+#logout:hover{
+    cursor: pointer;
+    color: #0e8a6b
+}

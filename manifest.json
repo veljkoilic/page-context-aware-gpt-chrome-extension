@@ -1,0 +1,12 @@
+{
+  "name": "GPT Page",
+  "version": "1.0.0",
+  "description": "Ask questions about the page you are seeing.",
+  "manifest_version": 3,
+  "author": "Veljko Ilic",
+  "permissions": ["tabs", "activeTab", "scripting", "storage"],
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Ask questions!"
+  }
+}
