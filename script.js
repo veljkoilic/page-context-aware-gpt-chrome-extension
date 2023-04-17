@@ -1,14 +1,4 @@
 var API_KEY = false;
-const apiKeyCheck = () => {
-  chrome.storage.local.get(["gpt_api_key"], function (result) {
-    if (result.gpt_api_key) {
-      API_KEY = result.gpt_api_key;
-      return true;
-    }
-    return false;
-  });
-};
-
 window.addEventListener("load", () => {
   chrome.storage.local.get(["gpt_api_key"], function (result) {
     if (result.gpt_api_key) {
@@ -51,10 +41,17 @@ const renderExtension = () => {
   askButton.addEventListener("click", () => {
     getCurrentTab().then(async (tab) => {
       insertText("Loading your answer, give it a few seconds...", resultParagraph);
-      const [{ result: pageText }] = await executeScript(tab.id, () => document.body.innerText);
+      const [{ result: pageText }] = await executeScript(tab.id, () => {
+        if (window.getSelection) {
+          return window.getSelection().toString();
+        } else if (document.selection && document.selection.type != "Control") {
+          return document.selection.createRange().text;
+        }
+        return document.body.innerText
+      });
 
       fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST", 
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${API_KEY}`,
@@ -65,10 +62,9 @@ const renderExtension = () => {
             {
               role: "user",
               content: `
-          I accessed a webpage and it had the following text on it:
-          ${pageText} . END OF PAGE TEXT.
-
-          With this in mind answer the following question: ${getPromptText(promptInput)}
+          Based on the following information:
+          ${pageText}
+          Answer the following prompt: ${getPromptText(promptInput)}
           `,
             },
           ],
@@ -81,7 +77,6 @@ const renderExtension = () => {
         })
         .catch((error) => {
           insertText("Something went wrong.", resultParagraph);
-          console.log(error)
         });
     });
   });
@@ -107,3 +102,19 @@ const renderAPIKeyForm = () => {
     });
   });
 };
+
+// getting text from the selected text
+const port = chrome.runtime.connect({ name: "popup" });
+
+port.onMessage.addListener((request) => {
+  if (request.action === "selectedText") {
+    processSelectedText(request.selectedText);
+  }
+});
+
+port.postMessage({ action: "requestSelectedText" });
+
+function processSelectedText(selectedText) {
+  console.log("Selected text:", selectedText);
+  // Process the selected text as needed
+}

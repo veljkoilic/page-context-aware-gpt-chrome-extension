@@ -4,9 +4,18 @@
   "description": "Ask questions about the page you are seeing.",
   "manifest_version": 3,
   "author": "Veljko Ilic",
-  "permissions": ["tabs", "activeTab", "scripting", "storage"],
+  "permissions": ["tabs", "activeTab", "scripting", "storage", "contextMenus"],
   "action": {
     "default_popup": "index.html",
     "default_title": "Ask questions!"
-  }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["script.js"]
+    }
+  ]
 }
